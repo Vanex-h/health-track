@@ -157,7 +157,7 @@ app.get("/all_patients", (req, res) => {
 app.delete("/delete_patient/:patient_id", (req, res) => {
     try {
         const id = req.params.patient_id;
-        db.run("delete from patients where id = ?", id,
+        db.run("delete from patients where national_id = ?", id,
             (err) => {
                 if (err) {
                     return res.status(400).json({

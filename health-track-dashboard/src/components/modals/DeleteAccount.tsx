@@ -11,9 +11,9 @@ export default function DeleteAccount() {
     const [showDeleteAccount, setShowDeleteAccount] = useRecoilState(showDeleteUserModalState);
     const [loading, setLoading] = useState(false);
 
-    const handleDeleteAccount = async (id: number) => {
+    const handleDeleteAccount = async (national_id: string) => {
         setLoading(true)
-        const response = await fetch(`http://localhost:1400/delete_patient/${id}`, {
+        const response = await fetch(`http://localhost:1400/delete_patient/${national_id}`, {
             method: "DELETE"
         })
         const data = await response.json()
@@ -43,7 +43,7 @@ export default function DeleteAccount() {
                     </Dialog.Title>
                     <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                            Are you sure you want to delete account of  {showDeleteAccount?.id || ""}? All of his/her data will be permanently removed
+                            Are you sure you want to delete account of <span className='text-pink-500'>{showDeleteAccount?.national_id || ""}</span> ? All of his/her data will be permanently removed
                             from our servers forever. This action cannot be undone.
                         </p>
                     </div>
@@ -54,7 +54,7 @@ export default function DeleteAccount() {
                     type="button"
                     disabled={loading}
                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => handleDeleteAccount(showDeleteAccount?.id || 0)}
+                    onClick={() => handleDeleteAccount(showDeleteAccount?.national_id || "")}
                 >
                     {loading ? (
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-50" />) :
